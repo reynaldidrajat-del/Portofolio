@@ -24,12 +24,12 @@ export const hero = {
     id: ["System Analyst", "Business Analyst", "Solution Architect"],
   },
   tagline: {
-    en: "I design enterprise systems — and document them visually.",
-    id: "Saya merancang sistem enterprise — dan mendokumentasikannya secara visual.",
+    en: "I design enterprise systems and document them visually.",
+    id: "Saya merancang sistem enterprise dan mendokumentasikannya secara visual.",
   },
   heroIntro: {
-    en: "Welcome to my visual portfolio. Below: the systems I've built, the people I've worked with, and the path that got me here — told mostly in pictures, because a good interface explains itself.",
-    id: "Selamat datang di portofolio visual saya. Di bawah: sistem yang saya bangun, orang-orang yang bekerja bersama saya, dan jalur yang membawa saya ke sini — diceritakan sebagian besar dalam gambar, karena antarmuka yang baik menjelaskan dirinya sendiri.",
+    en: "Most of this site is pictures. The screenshots come from systems I built for real operations: scheduling, procurement, HR, land, and property. I added a few words only where the pictures need context.",
+    id: "Sebagian besar situs ini berisi gambar. Tangkapan layarnya berasal dari sistem yang saya bangun untuk operasional nyata: penjadwalan, pengadaan, HR, lahan, dan properti. Saya menambahkan beberapa kata hanya sebagai konteks.",
   },
   cta: { en: "Explore my work", id: "Lihat karya saya" },
   /** Featured shots for the hero slider */
@@ -63,8 +63,8 @@ export const projects: Project[] = [
     title: "Learning Management System",
     tagline: { en: "Enterprise learning platform, end-to-end.", id: "Platform pembelajaran enterprise, end-to-end." },
     description: {
-      en: "A company-wide learning platform covering course catalogs, progress tracking, and certification. I gathered requirements from HR and department heads, designed the module flow, and led it from build to rollout.",
-      id: "Platform pembelajaran untuk seluruh perusahaan — katalog kursus, pemantauan progres, dan sertifikasi. Saya menghimpun kebutuhan dari HR dan kepala departemen, merancang alur modul, dan memimpin dari pengembangan hingga peluncuran.",
+      en: "A company-wide learning platform with course catalogs, progress tracking, and certification. Requirements came from HR and department heads; I turned them into module flows and saw the build through to rollout.",
+      id: "Platform pembelajaran untuk seluruh perusahaan dengan katalog kursus, pemantauan progres, dan sertifikasi. Kebutuhan datang dari HR dan kepala departemen; saya mengubahnya menjadi alur modul dan mendampingi pengembangan hingga peluncuran.",
     },
     tags: ["LMS", "SDLC", "UX"],
     accent: "#2563EB",
@@ -75,8 +75,8 @@ export const projects: Project[] = [
     title: "E-KPI & HRIS Integration",
     tagline: { en: "Performance monitoring inside HRIS.", id: "Monitoring kinerja terintegrasi HRIS." },
     description: {
-      en: "Employee KPIs that live inside the HRIS instead of scattered spreadsheets — targets, reviews, and dashboards in one place. I mapped the data model, designed the review workflow, and coordinated the integration testing.",
-      id: "KPI karyawan yang hidup di dalam HRIS, bukan tersebar di spreadsheet — target, review, dan dashboard dalam satu tempat. Saya memetakan model data, merancang alur review, dan mengoordinasikan integration testing.",
+      en: "Employee KPIs used to live in scattered spreadsheets. Now targets, reviews, and dashboards sit inside the HRIS. I mapped the data model and designed the review workflow, then coordinated integration testing.",
+      id: "Dulu KPI karyawan tersebar di berbagai spreadsheet. Kini target, review, dan dashboard ada di dalam HRIS. Saya memetakan model data dan merancang alur review, lalu mengoordinasikan integration testing.",
     },
     tags: ["HRIS", "Integration", "KPI"],
     accent: "#E11D48",
@@ -87,8 +87,8 @@ export const projects: Project[] = [
     title: "Caddie Attendance & Workforce",
     tagline: { en: "Scheduling, attendance, control.", id: "Penjadwalan, kehadiran, kontrol operasional." },
     description: {
-      en: "Daily operations for field workers: shift scheduling, GPS-checked attendance, and performance control. I ran the requirements workshops, wrote the BRD, and stayed through UAT and go-live.",
-      id: "Operasional harian pekerja lapangan: penjadwalan shift, kehadiran terverifikasi GPS, dan kontrol kinerja. Saya menjalankan workshop kebutuhan, menyusun BRD, dan mendampingi hingga UAT dan go-live.",
+      en: "Field crews check in with GPS-verified attendance, and supervisors build shift schedules against actual coverage. I ran the requirements workshops and wrote the BRD, then stayed on through UAT and go-live.",
+      id: "Pekerja lapangan melakukan check-in dengan kehadiran terverifikasi GPS, dan supervisor menyusun jadwal shift sesuai kebutuhan aktual. Saya menjalankan workshop kebutuhan dan menyusun BRD, lalu mendampingi hingga UAT dan go-live.",
     },
     tags: ["Workforce", "Scheduling"],
     accent: "#F97316",
@@ -99,8 +99,8 @@ export const projects: Project[] = [
     title: "Land Acquisition & Assets",
     tagline: { en: "From land docs to asset registry.", id: "Dari dokumen lahan ke registri aset." },
     description: {
-      en: "A single registry that turns stacks of land certificates and permits into searchable, auditable records. I designed the document flow with the legal team and shaped the asset data structure end to end.",
-      id: "Satu registri yang mengubah tumpukan sertifikat dan izin lahan menjadi catatan digital yang terbaca dan bisa diaudit. Saya merancang alur dokumen bersama tim legal dan membentuk struktur data aset dari awal hingga akhir.",
+      en: "Stacks of land certificates and permits became a searchable, auditable registry. I designed the document flow with the legal team; the asset data structure grew out of those conversations.",
+      id: "Tumpukan sertifikat dan izin lahan menjadi registri digital yang mudah dicari dan bisa diaudit. Saya merancang alur dokumen bersama tim legal; struktur data aset tumbuh dari diskusi-diskusi tersebut.",
     },
     tags: ["Assets", "Mapping"],
     accent: "#65A30D",
@@ -111,8 +111,8 @@ export const projects: Project[] = [
     title: "Property Systems & Portals",
     tagline: { en: "Reliable property ops, daily.", id: "Operasional properti yang andal." },
     description: {
-      en: "The internal systems that keep a public property company running — tenant portals, work orders, and reporting. I keep the lifecycle moving: analysis, releases, and day-to-day support across business units.",
-      id: "Sistem internal yang menjaga perusahaan properti publik tetap berjalan — portal tenant, work order, dan pelaporan. Saya mengelola siklusnya: analisis, rilis, dan support harian lintas unit bisnis.",
+      en: "Tenant portals, work orders, and reporting for a public property company. My part is keeping the lifecycle moving: analysis, releases, and day-to-day support across business units.",
+      id: "Portal tenant, work order, dan pelaporan untuk perusahaan properti publik. Tugas saya menjaga siklusnya tetap berjalan: analisis, rilis, dan support harian lintas unit bisnis.",
     },
     tags: ["Property", "Support"],
     accent: "#8B5CF6",
@@ -123,8 +123,8 @@ export const projects: Project[] = [
     title: "E-Procurement",
     tagline: { en: "Go + React procurement platform.", id: "Platform pengadaan dengan Go + React." },
     description: {
-      en: "A procurement platform built on Go and React — vendors, bidding, and approval chains with a full audit trail. I designed the API contract and process flows, documented in the repo's OpenAPI spec.",
-      id: "Platform pengadaan berbasis Go dan React — vendor, bidding, dan rantai approval dengan jejak audit lengkap. Saya merancang kontrak API dan alur prosesnya, terdokumentasi di OpenAPI spec pada repo.",
+      en: "A procurement platform in Go and React, with vendors, bidding, and approval chains that leave a full audit trail. The API contract and process flows are documented in the repo's OpenAPI spec.",
+      id: "Platform pengadaan berbasis Go dan React, dengan vendor, bidding, dan rantai approval yang meninggalkan jejak audit lengkap. Kontrak API dan alur proses terdokumentasi di OpenAPI spec pada repo.",
     },
     tags: ["Go", "React", "PostgreSQL"],
     accent: "#06B6D4",
@@ -135,17 +135,17 @@ export const projects: Project[] = [
 export const about = {
   heading: { en: "About", id: "Tentang" },
   intro: {
-    en: "The person behind the systems — a short story of how I turn business problems into working software.",
-    id: "Orang di balik sistem tersebut — kisah singkat bagaimana saya mengubah masalah bisnis menjadi perangkat lunak yang bekerja.",
+    en: "The person behind the systems: how I turn business problems into working software.",
+    id: "Orang di balik sistem tersebut: bagaimana saya mengubah masalah bisnis menjadi perangkat lunak yang bekerja.",
   },
   title: { en: "Analyst who ships systems.", id: "Analis yang melahirkan sistem." },
   lines: {
     en: [
-      "Assistant Manager & Business Analyst with 3+ years delivering enterprise systems — property, HR, learning, workforce, land & assets.",
+      "Assistant Manager & Business Analyst with 3+ years delivering enterprise systems: property, HR, learning, workforce, land & assets.",
       "From requirements to deployment: process maps, BRDs, solution design, testing, support.",
     ],
     id: [
-      "Assistant Manager & Business Analyst dengan 3+ tahun menghadirkan sistem enterprise — properti, HR, pembelajaran, workforce, lahan & aset.",
+      "Assistant Manager & Business Analyst dengan 3+ tahun menghadirkan sistem enterprise: properti, HR, pembelajaran, workforce, lahan & aset.",
       "Dari kebutuhan hingga deployment: peta proses, BRD, desain solusi, testing, support.",
     ],
   },
@@ -184,8 +184,8 @@ export const certificationsShort = [
 export const contact = {
   heading: { en: "Let's build something.", id: "Mari membangun sesuatu." },
   intro: {
-    en: "If you're hiring, have a project in mind, or just want to talk systems and design — my inbox is always open. I usually reply within a day.",
-    id: "Jika Anda sedang merekrut, punya proyek dalam pikiran, atau hanya ingin berdiskusi soal sistem dan desain — inbox saya selalu terbuka. Saya biasanya membalas dalam sehari.",
+    en: "If you're hiring, or have a project in mind, or just want to talk systems, email me. I usually reply within a day.",
+    id: "Jika Anda sedang merekrut, punya proyek, atau hanya ingin berdiskusi soal sistem, kirim email saja. Saya biasanya membalas dalam sehari.",
   },
   blurb: { en: "Open to new opportunities & collaboration.", id: "Terbuka untuk peluang baru & kolaborasi." },
   cta: { en: "Say hello", id: "Sapa saya" },
@@ -201,19 +201,19 @@ export const nav = {
 export const ui = {
   workLabel: { en: "Selected work", id: "Karya pilihan" },
   workIntro: {
-    en: "Enterprise systems I've led from first workshop to go-live. Each project is shown through its interface — slide through the screenshots to see how the story of requirements, design, and delivery turned into working software.",
-    id: "Sistem enterprise yang saya pimpin dari workshop pertama hingga go-live. Setiap proyek ditampilkan melalui antarmukanya — geser tangkapan layar untuk melihat bagaimana kebutuhan, desain, dan deliveri berubah menjadi perangkat lunak yang bekerja.",
+    en: "Six systems I led from first workshop to go-live. Slide through each project's screenshots to see how the requirements turned into working software.",
+    id: "Enam sistem yang saya pimpin dari workshop pertama hingga go-live. Geser tangkapan layar setiap proyek untuk melihat bagaimana kebutuhan berubah menjadi perangkat lunak yang bekerja.",
   },
   workNote: { en: "Slide through each project →", id: "Geser tiap proyek →" },
   dragHint: { en: "Scroll / swipe", id: "Gulir / geser" },
   pathLabel: { en: "The path so far", id: "Jalur sejauh ini" },
   pathIntro: {
-    en: "Three years across consulting and enterprise IT — from SAP blueprints and data dashboards to leading application lifecycles at a public property company. Education and certifications that back it up.",
-    id: "Tiga tahun di konsultansi dan IT enterprise — dari blueprint SAP dan dashboard data hingga memimpin siklus aplikasi di perusahaan properti publik. Pendidikan dan sertifikasi yang menopangnya.",
+    en: "Three years across consulting and enterprise IT, from SAP blueprints and data dashboards to leading application lifecycles at a public property company. My degree and certifications are listed here too.",
+    id: "Tiga tahun di konsultansi dan IT enterprise, dari blueprint SAP dan dashboard data hingga memimpin siklus aplikasi di perusahaan properti publik. Gelar dan sertifikasi saya tercantum di sini juga.",
   },
   aboutIntro: {
-    en: "A closer look at who I am, what I value in building systems, and the principles I bring to every project.",
-    id: "Pengenalan lebih dekat tentang siapa saya, apa yang saya utamakan dalam membangun sistem, dan prinsip yang saya bawa ke setiap proyek.",
+    en: "A closer look at who I am and what I care about when building systems.",
+    id: "Pengenalan lebih dekat tentang siapa saya dan apa yang saya utamakan dalam membangun sistem.",
   },
   educationLabel: { en: "Education", id: "Pendidikan" },
   certsLabel: { en: "Certifications", id: "Sertifikasi" },
