@@ -51,9 +51,9 @@ export type Project = {
   slug: string;
   title: string;
   tagline: { en: string; id: string };
+  description: { en: string; id: string };
   tags: string[];
   accent: string;
-  year: string;
   images: string[];
 };
 
@@ -62,54 +62,72 @@ export const projects: Project[] = [
     slug: "lms",
     title: "Learning Management System",
     tagline: { en: "Enterprise learning platform, end-to-end.", id: "Platform pembelajaran enterprise, end-to-end." },
+    description: {
+      en: "A company-wide learning platform covering course catalogs, progress tracking, and certification. I gathered requirements from HR and department heads, designed the module flow, and led it from build to rollout.",
+      id: "Platform pembelajaran untuk seluruh perusahaan — katalog kursus, pemantauan progres, dan sertifikasi. Saya menghimpun kebutuhan dari HR dan kepala departemen, merancang alur modul, dan memimpin dari pengembangan hingga peluncuran.",
+    },
     tags: ["LMS", "SDLC", "UX"],
     accent: "#2563EB",
-    year: "2025",
     images: [P("rd-lms-1"), P("rd-lms-2"), P("rd-lms-3"), P("rd-lms-4")],
   },
   {
     slug: "ekpi",
     title: "E-KPI & HRIS Integration",
     tagline: { en: "Performance monitoring inside HRIS.", id: "Monitoring kinerja terintegrasi HRIS." },
+    description: {
+      en: "Employee KPIs that live inside the HRIS instead of scattered spreadsheets — targets, reviews, and dashboards in one place. I mapped the data model, designed the review workflow, and coordinated the integration testing.",
+      id: "KPI karyawan yang hidup di dalam HRIS, bukan tersebar di spreadsheet — target, review, dan dashboard dalam satu tempat. Saya memetakan model data, merancang alur review, dan mengoordinasikan integration testing.",
+    },
     tags: ["HRIS", "Integration", "KPI"],
     accent: "#E11D48",
-    year: "2025",
     images: [P("rd-kpi-1"), P("rd-kpi-2"), P("rd-kpi-3"), P("rd-kpi-4")],
   },
   {
     slug: "caddie",
     title: "Caddie Attendance & Workforce",
     tagline: { en: "Scheduling, attendance, control.", id: "Penjadwalan, kehadiran, kontrol operasional." },
+    description: {
+      en: "Daily operations for field workers: shift scheduling, GPS-checked attendance, and performance control. I ran the requirements workshops, wrote the BRD, and stayed through UAT and go-live.",
+      id: "Operasional harian pekerja lapangan: penjadwalan shift, kehadiran terverifikasi GPS, dan kontrol kinerja. Saya menjalankan workshop kebutuhan, menyusun BRD, dan mendampingi hingga UAT dan go-live.",
+    },
     tags: ["Workforce", "Scheduling"],
     accent: "#F97316",
-    year: "2024",
     images: [P("rd-cad-1"), P("rd-cad-2"), P("rd-cad-3"), P("rd-cad-4")],
   },
   {
     slug: "land",
     title: "Land Acquisition & Assets",
     tagline: { en: "From land docs to asset registry.", id: "Dari dokumen lahan ke registri aset." },
+    description: {
+      en: "A single registry that turns stacks of land certificates and permits into searchable, auditable records. I designed the document flow with the legal team and shaped the asset data structure end to end.",
+      id: "Satu registri yang mengubah tumpukan sertifikat dan izin lahan menjadi catatan digital yang terbaca dan bisa diaudit. Saya merancang alur dokumen bersama tim legal dan membentuk struktur data aset dari awal hingga akhir.",
+    },
     tags: ["Assets", "Mapping"],
     accent: "#65A30D",
-    year: "2025",
     images: [P("rd-land-1"), P("rd-land-2"), P("rd-land-3"), P("rd-land-4")],
   },
   {
     slug: "property",
     title: "Property Systems & Portals",
     tagline: { en: "Reliable property ops, daily.", id: "Operasional properti yang andal." },
+    description: {
+      en: "The internal systems that keep a public property company running — tenant portals, work orders, and reporting. I keep the lifecycle moving: analysis, releases, and day-to-day support across business units.",
+      id: "Sistem internal yang menjaga perusahaan properti publik tetap berjalan — portal tenant, work order, dan pelaporan. Saya mengelola siklusnya: analisis, rilis, dan support harian lintas unit bisnis.",
+    },
     tags: ["Property", "Support"],
     accent: "#8B5CF6",
-    year: "2026",
     images: [P("rd-prop-1"), P("rd-prop-2"), P("rd-prop-3"), P("rd-prop-4")],
   },
   {
     slug: "eproc",
     title: "E-Procurement",
     tagline: { en: "Go + React procurement platform.", id: "Platform pengadaan dengan Go + React." },
+    description: {
+      en: "A procurement platform built on Go and React — vendors, bidding, and approval chains with a full audit trail. I designed the API contract and process flows, documented in the repo's OpenAPI spec.",
+      id: "Platform pengadaan berbasis Go dan React — vendor, bidding, dan rantai approval dengan jejak audit lengkap. Saya merancang kontrak API dan alur prosesnya, terdokumentasi di OpenAPI spec pada repo.",
+    },
     tags: ["Go", "React", "PostgreSQL"],
     accent: "#06B6D4",
-    year: "2026",
     images: [P("rd-eproc-1"), P("rd-eproc-2"), P("rd-eproc-3"), P("rd-eproc-4")],
   },
 ];

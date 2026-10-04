@@ -30,21 +30,14 @@ export default function Projects() {
               <article className="grid items-center gap-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-12">
                 {/* Text column — minimal */}
                 <div className={i % 2 === 1 ? "lg:order-2" : ""}>
-                  <div className="flex items-center gap-3">
-                    <span
-                      className="rounded-full px-3 py-1 text-xs font-semibold tracking-wide text-white"
-                      style={{ background: p.accent }}
-                    >
-                      {p.year}
-                    </span>
-                    <span className="text-xs font-semibold tracking-widest text-zinc-400 uppercase">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                  </div>
-                  <h3 className="font-serif-d mt-4 text-3xl leading-tight font-semibold tracking-tight text-zinc-900 sm:text-4xl">
+                  <span className="text-xs font-semibold tracking-widest text-zinc-400 uppercase">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="font-serif-d mt-3 text-3xl leading-tight font-semibold tracking-tight text-zinc-900 sm:text-4xl">
                     {p.title}
                   </h3>
-                  <p className="mt-3 text-base leading-relaxed text-zinc-500">{p.tagline[locale]}</p>
+                  <p className="mt-2 text-base font-medium text-zinc-500">{p.tagline[locale]}</p>
+                  <p className="mt-3 text-base leading-relaxed text-zinc-600">{p.description[locale]}</p>
                   <ul className="mt-5 flex flex-wrap gap-2">
                     {p.tags.map((tag) => (
                       <li key={tag} className="chip">{tag}</li>
