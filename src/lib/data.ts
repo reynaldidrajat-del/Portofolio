@@ -5,6 +5,11 @@ export type Locale = "en" | "id";
 const P = (seed: string, w = 1200, h = 800) =>
   `https://picsum.photos/seed/${seed}/${w}/${h}`;
 
+/** Curated Unsplash photos (verified live) — thematically matched per project.
+ *  Replace with real system screenshots in /public/screenshots when ready. */
+const U = (id: string, w = 1200) =>
+  `https://images.unsplash.com/${id}?q=80&w=${w}&fit=crop&auto=format`;
+
 export const profile = {
   name: "Reynaldi Drajat Ageng Perwira",
   shortName: "Reynaldi Drajat",
@@ -34,11 +39,11 @@ export const hero = {
   cta: { en: "Explore my work", id: "Lihat karya saya" },
   /** Featured shots for the hero slider — sized above the largest stage width so they never upscale */
   slides: [
-    { src: P("rd-hero-1", 1600, 1000), alt: { en: "Dashboard interface", id: "Tampilan dashboard" } },
-    { src: P("rd-hero-2", 1600, 1000), alt: { en: "Mobile app screens", id: "Tampilan aplikasi mobile" } },
-    { src: P("rd-hero-3", 1600, 1000), alt: { en: "Process mapping board", id: "Papan pemetaan proses" } },
-    { src: P("rd-hero-4", 1600, 1000), alt: { en: "Data analytics view", id: "Tampilan analitik data" } },
-    { src: P("rd-hero-5", 1600, 1000), alt: { en: "System architecture sketch", id: "Sketsa arsitektur sistem" } },
+    { src: U("photo-1498050108023-c5249f4df085", 1600), alt: { en: "Writing code on a laptop", id: "Menulis kode di laptop" } },
+    { src: U("photo-1522071820081-009f0129c71c", 1600), alt: { en: "Team working together", id: "Tim bekerja bersama" } },
+    { src: U("photo-1551288049-bebda4e38f71", 1600), alt: { en: "Analytics dashboard", id: "Dashboard analitik" } },
+    { src: U("photo-1497366216548-37526070297c", 1600), alt: { en: "Modern office workspace", id: "Ruang kerja kantor modern" } },
+    { src: U("photo-1516321318423-f06f85e504b3", 1600), alt: { en: "Planning with a laptop", id: "Perencanaan dengan laptop" } },
   ],
 };
 
@@ -68,7 +73,7 @@ export const projects: Project[] = [
     },
     tags: ["LMS", "SDLC", "UX"],
     accent: "#2563EB",
-    images: [P("rd-lms-1"), P("rd-lms-2"), P("rd-lms-3"), P("rd-lms-4")],
+    images: [U("photo-1501504905252-473c47e087f8"), U("photo-1522202176988-66273c2fd55f"), U("photo-1516321318423-f06f85e504b3"), U("photo-1551288049-bebda4e38f71")],
   },
   {
     slug: "ekpi",
@@ -80,7 +85,7 @@ export const projects: Project[] = [
     },
     tags: ["HRIS", "Integration", "KPI"],
     accent: "#E11D48",
-    images: [P("rd-kpi-1"), P("rd-kpi-2"), P("rd-kpi-3"), P("rd-kpi-4")],
+    images: [U("photo-1551288049-bebda4e38f71"), U("photo-1460925895917-afdab827c52f"), U("photo-1543286386-713bdd548da4"), U("photo-1551288049-bebda4e38f71")],
   },
   {
     slug: "caddie",
@@ -92,7 +97,7 @@ export const projects: Project[] = [
     },
     tags: ["Workforce", "Scheduling"],
     accent: "#F97316",
-    images: [P("rd-cad-1"), P("rd-cad-2"), P("rd-cad-3"), P("rd-cad-4")],
+    images: [U("photo-1504328345606-18bbc8c9d7d1"), U("photo-1581091226825-a6a2a5aee158"), U("photo-1521737711867-e3b97375f902"), U("photo-1522202176988-66273c2fd55f")],
   },
   {
     slug: "land",
@@ -104,7 +109,7 @@ export const projects: Project[] = [
     },
     tags: ["Assets", "Mapping"],
     accent: "#65A30D",
-    images: [P("rd-land-1"), P("rd-land-2"), P("rd-land-3"), P("rd-land-4")],
+    images: [U("photo-1500382017468-9049fed747ef"), U("photo-1625246333195-78d9c38ad449"), U("photo-1524661135-423995f22d0b"), U("photo-1500382017468-9049fed747ef")],
   },
   {
     slug: "property",
@@ -116,7 +121,7 @@ export const projects: Project[] = [
     },
     tags: ["Property", "Support"],
     accent: "#8B5CF6",
-    images: [P("rd-prop-1"), P("rd-prop-2"), P("rd-prop-3"), P("rd-prop-4")],
+    images: [U("photo-1486406146926-c627a92ad1ab"), U("photo-1545324418-cc1a3fa10c00"), U("photo-1560518883-ce09059eeffa"), U("photo-1486406146926-c627a92ad1ab")],
   },
   {
     slug: "eproc",
@@ -128,7 +133,7 @@ export const projects: Project[] = [
     },
     tags: ["Go", "React", "PostgreSQL"],
     accent: "#06B6D4",
-    images: [P("rd-eproc-1"), P("rd-eproc-2"), P("rd-eproc-3"), P("rd-eproc-4")],
+    images: [U("photo-1553413077-190dd305871c"), U("photo-1586528116311-ad8dd3c8310d"), U("photo-1555066931-4365d14bab8c"), U("photo-1553413077-190dd305871c")],
   },
 ];
 
