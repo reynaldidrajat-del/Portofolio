@@ -64,6 +64,12 @@ export default function HeroCarousel({
     return () => clearInterval(id);
   }, [reduce, images.length]);
 
+  // Auto-scroll the filmstrip so the active thumbnail stays in view
+  useEffect(() => {
+    const el = document.querySelector(`[data-filmstrip="${index}"]`);
+    el?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "nearest", inline: "nearest" });
+  }, [index, reduce]);
+
   if (!images.length) return null;
 
   const variants = {
@@ -159,6 +165,48 @@ export default function HeroCarousel({
           </>
         )}
       </div>
+
+      {/* Filmstrip: every image in a row — active one highlighted, click to jump */}
+      {images.length > 1 && (
+        <div
+          className="no-scrollbar mt-3 flex gap-2.5 overflow-x-auto pb-1"
+          role="tablist"
+          aria-label={t(ui.goto)}
+        >
+          {images.map((src, i) => (
+            <button
+              key={i}
+              type="button"
+              role="tab"
+              aria-selected={i === index}
+              aria-label={`${t(ui.goto)} ${i + 1}`}
+              onClick={() => go(i, i > index ? 1 : -1)}
+              data-filmstrip={i}
+              className={`relative aspect-[16/10] w-28 shrink-0 cursor-pointer overflow-hidden rounded-lg border-2 transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900 sm:w-36 ${
+                i === index
+                  ? "border-blue-600 opacity-100 shadow-md"
+                  : "border-transparent opacity-50 hover:opacity-90"
+              }`}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={src}
+                alt=""
+                aria-hidden="true"
+                loading="lazy"
+                draggable={false}
+                className="h-full w-full object-cover"
+              />
+              {i === index && (
+                <motion.span
+                  layoutId="filmstrip-active"
+                  className="pointer-events-none absolute inset-0 rounded-md ring-2 ring-blue-600 ring-inset"
+                />
+              )}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Story-style progress bars, also clickable */}
       {images.length > 1 && (
