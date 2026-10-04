@@ -9,8 +9,8 @@ import {
 } from "framer-motion";
 import { useLanguage, useT } from "@/lib/i18n";
 import { hero, marquee, profile } from "@/lib/data";
+import HeroCarousel from "./HeroCarousel";
 import Reveal from "./Reveal";
-import Slider from "./Slider";
 
 export default function Hero() {
   const t = useT();
@@ -90,14 +90,11 @@ export default function Hero() {
           </div>
         </Reveal>
 
-        {/* Hero slider — big visual hook */}
+        {/* Hero carousel — big visual hook */}
         <Reveal delay={340} className="mt-14">
-          <Slider
+          <HeroCarousel
             images={hero.slides.map((s) => s.src)}
             alt={t({ en: "Selected system screenshots", id: "Pilihan tangkapan layar sistem" })}
-            accent="#2563EB"
-            aspect="aspect-[16/8]"
-            autoplay
           />
         </Reveal>
       </motion.div>
