@@ -1,18 +1,20 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useT } from "@/lib/i18n";
 import { ui } from "@/lib/data";
 
 const SLIDE_MS = 5000;
+const STRIP_COUNT = 3; // thumbnails per side
 
 /**
- * Cinematic hero carousel (framer-motion):
- * - one large slide at a time, spring slide+fade between images
- * - Ken Burns slow zoom on the active image (feels alive, not stiff)
- * - story-style progress bars (double as clickable navigation)
- * - autoplay freezes on hover/focus; fully disabled under reduced motion
+ * Cinematic hero carousel with film-reel flanks:
+ * - one large stage, spring slide+fade between images, Ken Burns zoom
+ * - vertical thumbnail strips on BOTH sides (previous / next frames),
+ *   like a film roll — click any frame to bring it to the stage
+ * - story-style progress bars on mobile (where strips are hidden)
+ * - autoplay freezes on hover/focus; disabled under reduced motion
  */
 export default function HeroCarousel({
   images,
@@ -44,8 +46,6 @@ export default function HeroCarousel({
 
   // One interval drives both autoplay and the progress bars, so pausing
   // freezes them in sync. Skipped entirely under reduced motion.
-  // (setInterval over rAF: keeps running reliably across browsers/webviews,
-  // and 60fps smoothness isn't needed for a 5s progress fill — CSS handles it.)
   useEffect(() => {
     if (reduce || images.length < 2) return;
     const id = setInterval(() => {
@@ -64,13 +64,13 @@ export default function HeroCarousel({
     return () => clearInterval(id);
   }, [reduce, images.length]);
 
-  // Auto-scroll the filmstrip so the active thumbnail stays in view
-  useEffect(() => {
-    const el = document.querySelector(`[data-filmstrip="${index}"]`);
-    el?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "nearest", inline: "nearest" });
-  }, [index, reduce]);
-
   if (!images.length) return null;
+
+  const n = images.length;
+  const leftFrames = Array.from({ length: STRIP_COUNT }, (_, i) => (index - 1 - i + n * 2) % n);
+  const rightFrames = Array.from({ length: STRIP_COUNT }, (_, i) => (index + 1 + i) % n);
+  // de-duplicate when the gallery has few images
+  const dedupe = (arr: number[]) => [...new Set(arr)].filter((i) => i !== index);
 
   const variants = {
     enter: (dir: number) => ({
@@ -86,6 +86,34 @@ export default function HeroCarousel({
     }),
   };
 
+  const stripButton = (i: number, side: "left" | "right") => (
+    <button
+      key={`${side}-${i}`}
+      type="button"
+      onClick={() => go(i, side === "left" ? -1 : 1)}
+      aria-label={`${t(ui.goto)} ${i + 1}`}
+      className="group/strip relative aspect-[4/3] w-full cursor-pointer overflow-hidden rounded-lg border border-zinc-200 bg-zinc-100 opacity-55 transition-all duration-300 hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900"
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={images[i]}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        draggable={false}
+        className="h-full w-full object-cover transition-transform duration-500 group-hover/strip:scale-105 motion-reduce:transition-none"
+      />
+      <span
+        aria-hidden="true"
+        className={`absolute inset-x-0 bottom-0 bg-gradient-to-t from-zinc-900/60 to-transparent py-1 text-center text-[10px] font-semibold text-white opacity-0 transition-opacity duration-200 group-hover/strip:opacity-100 ${
+          side === "left" ? "" : ""
+        }`}
+      >
+        {i + 1}
+      </span>
+    </button>
+  );
+
   return (
     <div
       className="group/car relative"
@@ -94,30 +122,39 @@ export default function HeroCarousel({
       onFocusCapture={() => setPaused(true)}
       onBlurCapture={() => setPaused(false)}
     >
-      <div
-        onKeyDown={(e) => {
-          if (e.key === "ArrowRight") {
-            e.preventDefault();
-            go(index + 1, 1);
-          } else if (e.key === "ArrowLeft") {
-            e.preventDefault();
-            go(index - 1, -1);
-          }
-        }}
-        className="relative aspect-[16/9] overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-100 sm:aspect-[16/8]"
-        role="region"
-        aria-label={alt}
-        aria-roledescription="carousel"
-        tabIndex={0}
-      >
-        <AnimatePresence initial={false} custom={direction}>
+      <div className="flex items-stretch gap-3">
+        {/* Left film reel — previous frames */}
+        {n > 1 && (
+          <div
+            className="hidden w-24 shrink-0 flex-col justify-center gap-2.5 md:flex lg:w-28"
+            aria-hidden="true"
+          >
+            {dedupe(leftFrames).slice(0, STRIP_COUNT).map((i) => stripButton(i, "left"))}
+          </div>
+        )}
+
+        {/* Main stage */}
+        <div
+          onKeyDown={(e) => {
+            if (e.key === "ArrowRight") {
+              e.preventDefault();
+              go(index + 1, 1);
+            } else if (e.key === "ArrowLeft") {
+              e.preventDefault();
+              go(index - 1, -1);
+            }
+          }}
+          className="relative min-w-0 flex-1 aspect-[16/9] overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-100 sm:aspect-[16/8]"
+          role="region"
+          aria-label={alt}
+          aria-roledescription="carousel"
+          tabIndex={0}
+        >
           <motion.div
             key={index}
             custom={direction}
-            variants={variants}
-            initial={reduce ? false : "enter"}
-            animate="center"
-            exit="exit"
+            initial={reduce ? false : { x: direction >= 0 ? 90 : -90, opacity: 0, scale: 1.04 }}
+            animate={{ x: 0, opacity: 1, scale: 1 }}
             transition={
               reduce
                 ? { duration: 0 }
@@ -125,91 +162,59 @@ export default function HeroCarousel({
             }
             className="absolute inset-0"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <motion.img
-              src={images[index]}
-              alt={`${alt} — ${index + 1}/${images.length}`}
-              draggable={false}
-              initial={reduce ? undefined : { scale: 1 }}
-              animate={reduce ? undefined : { scale: 1.07 }}
-              transition={{ duration: SLIDE_MS / 1000 + 0.6, ease: "linear" }}
-              className="h-full w-full object-cover"
-            />
-            {/* soft vignette so white photos don't bleed into the page */}
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent"
-            />
-          </motion.div>
-        </AnimatePresence>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <motion.img
+                src={images[index]}
+                alt={`${alt} — ${index + 1}/${n}`}
+                draggable={false}
+                initial={reduce ? undefined : { scale: 1 }}
+                animate={reduce ? undefined : { scale: 1.07 }}
+                transition={{ duration: SLIDE_MS / 1000 + 0.6, ease: "linear" }}
+                className="h-full w-full object-cover"
+              />
+              {/* soft vignette so white photos don't bleed into the page */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent"
+              />
+            </motion.div>
 
-        {/* Prev / Next */}
-        {images.length > 1 && (
-          <>
-            <button
-              type="button"
-              onClick={() => go(index - 1, -1)}
-              aria-label={t(ui.prev)}
-              className="absolute top-1/2 left-3 hidden h-11 w-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white/90 text-zinc-900 opacity-0 shadow-lg ring-1 ring-zinc-200 backdrop-blur transition-opacity duration-200 hover:bg-white focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900 group-hover/car:opacity-100 sm:flex"
-            >
-              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
-            </button>
-            <button
-              type="button"
-              onClick={() => go(index + 1, 1)}
-              aria-label={t(ui.next)}
-              className="absolute top-1/2 right-3 hidden h-11 w-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white/90 text-zinc-900 opacity-0 shadow-lg ring-1 ring-zinc-200 backdrop-blur transition-opacity duration-200 hover:bg-white focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900 group-hover/car:opacity-100 sm:flex"
-            >
-              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
-            </button>
-          </>
+          {/* Prev / Next on the stage */}
+          {n > 1 && (
+            <>
+              <button
+                type="button"
+                onClick={() => go(index - 1, -1)}
+                aria-label={t(ui.prev)}
+                className="absolute top-1/2 left-3 hidden h-11 w-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white/90 text-zinc-900 opacity-0 shadow-lg ring-1 ring-zinc-200 backdrop-blur transition-opacity duration-200 hover:bg-white focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900 group-hover/car:opacity-100 sm:flex"
+              >
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
+              </button>
+              <button
+                type="button"
+                onClick={() => go(index + 1, 1)}
+                aria-label={t(ui.next)}
+                className="absolute top-1/2 right-3 hidden h-11 w-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white/90 text-zinc-900 opacity-0 shadow-lg ring-1 ring-zinc-200 backdrop-blur transition-opacity duration-200 hover:bg-white focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900 group-hover/car:opacity-100 sm:flex"
+              >
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
+              </button>
+            </>
+          )}
+        </div>
+
+        {/* Right film reel — next frames */}
+        {n > 1 && (
+          <div
+            className="hidden w-24 shrink-0 flex-col justify-center gap-2.5 md:flex lg:w-28"
+            aria-hidden="true"
+          >
+            {dedupe(rightFrames).slice(0, STRIP_COUNT).map((i) => stripButton(i, "right"))}
+          </div>
         )}
       </div>
 
-      {/* Filmstrip: every image in a row — active one highlighted, click to jump */}
-      {images.length > 1 && (
-        <div
-          className="no-scrollbar mt-3 flex gap-2.5 overflow-x-auto pb-1"
-          role="tablist"
-          aria-label={t(ui.goto)}
-        >
-          {images.map((src, i) => (
-            <button
-              key={i}
-              type="button"
-              role="tab"
-              aria-selected={i === index}
-              aria-label={`${t(ui.goto)} ${i + 1}`}
-              onClick={() => go(i, i > index ? 1 : -1)}
-              data-filmstrip={i}
-              className={`relative aspect-[16/10] w-28 shrink-0 cursor-pointer overflow-hidden rounded-lg border-2 transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900 sm:w-36 ${
-                i === index
-                  ? "border-blue-600 opacity-100 shadow-md"
-                  : "border-transparent opacity-50 hover:opacity-90"
-              }`}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={src}
-                alt=""
-                aria-hidden="true"
-                loading="lazy"
-                draggable={false}
-                className="h-full w-full object-cover"
-              />
-              {i === index && (
-                <motion.span
-                  layoutId="filmstrip-active"
-                  className="pointer-events-none absolute inset-0 rounded-md ring-2 ring-blue-600 ring-inset"
-                />
-              )}
-            </button>
-          ))}
-        </div>
-      )}
-
-      {/* Story-style progress bars, also clickable */}
-      {images.length > 1 && (
+      {/* Story-style progress bars — primary nav on mobile (strips hidden), sync indicator on desktop */}
+      {n > 1 && (
         <div
           className="mt-3 flex items-center justify-center gap-1.5"
           role="tablist"
@@ -223,14 +228,14 @@ export default function HeroCarousel({
               aria-selected={i === index}
               aria-label={`${t(ui.goto)} ${i + 1}`}
               onClick={() => go(i, i > index ? 1 : -1)}
-              className="h-1.5 flex-1 max-w-14 cursor-pointer overflow-hidden rounded-full bg-zinc-200 transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900"
+              className="h-1.5 w-8 cursor-pointer overflow-hidden rounded-full bg-zinc-200 transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900 sm:w-10"
             >
               <span
-                className="block h-full rounded-full bg-zinc-900"
+                className="block h-full rounded-full"
                 style={{
                   width:
                     i < index ? "100%" : i === index ? `${progress * 100}%` : "0%",
-                  background: i === index ? "#2563EB" : undefined,
+                  background: i === index ? "#2563EB" : "#a1a1aa",
                 }}
               />
             </button>
