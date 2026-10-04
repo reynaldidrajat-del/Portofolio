@@ -1,5 +1,12 @@
 "use client";
 
+import { useRef } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useReducedMotion,
+} from "framer-motion";
 import { useLanguage, useT } from "@/lib/i18n";
 import { hero, marquee, profile } from "@/lib/data";
 import Reveal from "./Reveal";
@@ -8,17 +15,41 @@ import Slider from "./Slider";
 export default function Hero() {
   const t = useT();
   const { locale } = useLanguage();
+  const reduce = useReducedMotion();
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Parallax: content drifts up slightly while blobs drift down as you scroll away
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const blobY = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.4]);
 
   return (
-    <section id="top" className="relative overflow-hidden pt-28 pb-10 sm:pt-32">
-      {/* colorful blob background */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
+    <section id="top" ref={sectionRef} className="relative overflow-hidden pt-28 pb-10 sm:pt-32">
+      {/* colorful blob background, parallaxed */}
+      <motion.div
+        aria-hidden="true"
+        style={reduce ? undefined : { y: blobY }}
+        className="pointer-events-none absolute inset-0 -z-10"
+      >
         <div className="absolute -top-24 -left-24 h-96 w-96 rounded-full bg-blue-400/15 blur-[110px]" />
         <div className="absolute top-10 -right-24 h-80 w-80 rounded-full bg-rose-400/15 blur-[110px]" />
-        <div className="absolute bottom-0 left-1/3 h-72 w-72 rounded-full bg-amber-300/20 blur-[100px]" />
-      </div>
+        <div className="absolute bottom-0 left-1/3 h-72 w-72 rounded-full bg-amber-300/20 blur-[100px]">
+          <motion.div
+            animate={reduce ? undefined : { scale: [1, 1.15, 1] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+            className="h-full w-full rounded-full bg-amber-300/30 blur-[60px]"
+          />
+        </div>
+      </motion.div>
 
-      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+      <motion.div
+        style={reduce ? undefined : { y: contentY, opacity: contentOpacity }}
+        className="mx-auto max-w-6xl px-5 sm:px-8"
+      >
         <Reveal>
           <p className="chip mb-6">
             <span className="mr-2 inline-block h-2 w-2 rounded-full bg-green-500" aria-hidden="true" />
@@ -69,7 +100,7 @@ export default function Hero() {
             autoplay
           />
         </Reveal>
-      </div>
+      </motion.div>
 
       {/* Marquee */}
       <div className="mt-14 border-y border-zinc-200 bg-white py-3.5" aria-hidden="true">
