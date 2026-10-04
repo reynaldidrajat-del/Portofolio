@@ -2,7 +2,7 @@ export type Locale = "en" | "id";
 
 /** Placeholder images — replace with your real system screenshots.
  *  Put files in portfolio/public/screenshots/ and change src to "/screenshots/xxx.png" */
-const P = (seed: string, w = 960, h = 640) =>
+const P = (seed: string, w = 1200, h = 800) =>
   `https://picsum.photos/seed/${seed}/${w}/${h}`;
 
 export const profile = {
@@ -32,13 +32,13 @@ export const hero = {
     id: "Sebagian besar situs ini berisi gambar. Tangkapan layarnya berasal dari sistem yang saya bangun untuk operasional nyata: penjadwalan, pengadaan, HR, lahan, dan properti. Saya menambahkan beberapa kata hanya sebagai konteks.",
   },
   cta: { en: "Explore my work", id: "Lihat karya saya" },
-  /** Featured shots for the hero slider */
+  /** Featured shots for the hero slider — sized above the largest stage width so they never upscale */
   slides: [
-    { src: P("rd-hero-1"), alt: { en: "Dashboard interface", id: "Tampilan dashboard" } },
-    { src: P("rd-hero-2"), alt: { en: "Mobile app screens", id: "Tampilan aplikasi mobile" } },
-    { src: P("rd-hero-3"), alt: { en: "Process mapping board", id: "Papan pemetaan proses" } },
-    { src: P("rd-hero-4"), alt: { en: "Data analytics view", id: "Tampilan analitik data" } },
-    { src: P("rd-hero-5"), alt: { en: "System architecture sketch", id: "Sketsa arsitektur sistem" } },
+    { src: P("rd-hero-1", 1600, 1000), alt: { en: "Dashboard interface", id: "Tampilan dashboard" } },
+    { src: P("rd-hero-2", 1600, 1000), alt: { en: "Mobile app screens", id: "Tampilan aplikasi mobile" } },
+    { src: P("rd-hero-3", 1600, 1000), alt: { en: "Process mapping board", id: "Papan pemetaan proses" } },
+    { src: P("rd-hero-4", 1600, 1000), alt: { en: "Data analytics view", id: "Tampilan analitik data" } },
+    { src: P("rd-hero-5", 1600, 1000), alt: { en: "System architecture sketch", id: "Sketsa arsitektur sistem" } },
   ],
 };
 

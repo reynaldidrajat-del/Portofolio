@@ -168,7 +168,7 @@ export default function HeroCarousel({
                 alt={`${alt} — ${index + 1}/${n}`}
                 draggable={false}
                 initial={reduce ? undefined : { scale: 1 }}
-                animate={reduce ? undefined : { scale: 1.07 }}
+                animate={reduce ? undefined : { scale: 1.03 }}
                 transition={{ duration: SLIDE_MS / 1000 + 0.6, ease: "linear" }}
                 className="h-full w-full object-cover"
               />

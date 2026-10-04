@@ -18,14 +18,13 @@ export default function Hero() {
   const reduce = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Parallax: content drifts up slightly while blobs drift down as you scroll away
+  // Parallax on the decorative blobs only — text stays crisp because
+  // transform animations on text force GPU layers with rougher antialiasing.
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end start"],
   });
-  const contentY = useTransform(scrollYProgress, [0, 1], [0, -60]);
   const blobY = useTransform(scrollYProgress, [0, 1], [0, 80]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.4]);
 
   return (
     <section id="top" ref={sectionRef} className="relative overflow-hidden pt-28 pb-10 sm:pt-32">
@@ -46,8 +45,7 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      <motion.div
-        style={reduce ? undefined : { y: contentY, opacity: contentOpacity }}
+      <div
         className="mx-auto max-w-6xl px-5 sm:px-8"
       >
         <Reveal>
@@ -97,7 +95,7 @@ export default function Hero() {
             alt={t({ en: "Selected system screenshots", id: "Pilihan tangkapan layar sistem" })}
           />
         </Reveal>
-      </motion.div>
+      </div>
 
       {/* Marquee */}
       <div className="mt-14 border-y border-zinc-200 bg-white py-3.5" aria-hidden="true">
