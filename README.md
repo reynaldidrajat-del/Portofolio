@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Reynaldi Drajat — Visual Portfolio
+
+Personal portfolio website for **Reynaldi Drajat Ageng Perwira** — Assistant Manager & Business Analyst.
+
+Built with **Next.js 16** (App Router), TypeScript, and Tailwind CSS v4.
+
+## Features
+
+- 🎨 **Editorial design** — Fraunces (serif display) + Inter (body), light theme with colorful per-project accents
+- 📸 **Image sliders everywhere** — hero slider + per-project carousels (scroll-snap, swipe, keyboard, dots, autoplay with pause on hover/focus)
+- 🌐 **Bilingual EN/ID** — full content toggle, persisted in localStorage
+- ⚡ **Scroll-reveal animations** — IntersectionObserver-based, respects `prefers-reduced-motion`
+- ♿ **Accessible** — semantic HTML, keyboard navigable, no horizontal overflow
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Customizing Content
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+All text content lives in [`src/lib/data.ts`](src/lib/data.ts) — profile, projects, experience, and section intros, each with EN/ID pairs.
 
-## Learn More
+### Replacing placeholder images
 
-To learn more about Next.js, take a look at the following resources:
+Sliders currently use placeholder photos from picsum.photos. To use your real system screenshots:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Put your images in `public/screenshots/`
+2. In `src/lib/data.ts`, change each project's `images` entries, e.g.:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```ts
+images: ["/screenshots/lms-1.png", "/screenshots/lms-2.png"]
+```
 
-## Deploy on Vercel
+### Replacing the CV
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Replace `public/Reynaldi-Drajat-CV.pdf` with your real CV (keep the same filename).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deploy
+
+Works on any Node host. For Vercel: connect the repo at [vercel.com/new](https://vercel.com/new). For static export (GitHub Pages), add `output: "export"` to `next.config.ts`.
