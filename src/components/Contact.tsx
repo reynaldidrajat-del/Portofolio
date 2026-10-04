@@ -55,7 +55,10 @@ export default function Contact() {
                   <span className="text-xs font-semibold tracking-widest text-zinc-400 uppercase">
                     {l.label}
                   </span>
-                  <span className="mt-1 block truncate text-sm font-semibold text-zinc-900 group-hover:text-blue-600">
+                  <span
+                    title={l.value}
+                    className="mt-1 block truncate text-sm font-semibold text-zinc-900 group-hover:text-blue-600"
+                  >
                     {l.value}
                   </span>
                 </a>

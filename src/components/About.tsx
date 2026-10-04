@@ -1,12 +1,16 @@
 "use client";
 
 import { useLanguage, useT } from "@/lib/i18n";
-import { about, ui } from "@/lib/data";
+import { about, profile, ui } from "@/lib/data";
+import { useState } from "react";
 import Reveal from "./Reveal";
 
 export default function About() {
   const t = useT();
   const { locale } = useLanguage();
+  // break-ui edge case: if the avatar URL ever fails to load, fall back to
+  // initials instead of a broken-image icon
+  const [avatarFailed, setAvatarFailed] = useState(false);
 
   return (
     <section id="about" className="border-y border-zinc-200 bg-white py-20 sm:py-28">
@@ -26,14 +30,25 @@ export default function About() {
                 aria-hidden="true"
                 className="absolute -inset-3 rotate-3 rounded-3xl bg-gradient-to-br from-blue-500 via-violet-500 to-rose-400 opacity-80 blur-[2px] motion-reduce:rotate-0"
               />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="https://avatars.githubusercontent.com/u/262280626?v=4"
-                alt="Reynaldi Drajat Ageng Perwira"
-                width={260}
-                height={260}
-                className="relative w-full rounded-3xl border-4 border-white object-cover shadow-xl"
-              />
+              {avatarFailed ? (
+                <div
+                  role="img"
+                  aria-label={profile.name}
+                  className="font-serif-d relative flex aspect-square w-full items-center justify-center rounded-3xl border-4 border-white bg-zinc-900 text-6xl font-semibold text-white shadow-xl"
+                >
+                  {profile.initials}
+                </div>
+              ) : (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={profile.avatar}
+                  alt={profile.name}
+                  width={260}
+                  height={260}
+                  onError={() => setAvatarFailed(true)}
+                  className="relative w-full rounded-3xl border-4 border-white object-cover shadow-xl"
+                />
+              )}
             </div>
           </Reveal>
 

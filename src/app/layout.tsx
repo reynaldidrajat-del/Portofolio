@@ -35,6 +35,9 @@ export const viewport: Viewport = {
   themeColor: "#fafafa",
   width: "device-width",
   initialScale: 1,
+  // mobile-native: let the page paint under the notch so env(safe-area-inset-*)
+  // values are real (used by .safe-x on the fixed header)
+  viewportFit: "cover",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

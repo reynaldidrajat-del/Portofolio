@@ -29,7 +29,7 @@ export default function Navbar() {
         scrolled ? "border-b border-zinc-200 bg-white/85 backdrop-blur-md" : "bg-transparent"
       }`}
     >
-      <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8" aria-label="Main">
+      <nav className="safe-x mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8" aria-label="Main">
         <a href="#top" className="font-serif-d flex items-center gap-2 text-lg font-semibold tracking-tight text-zinc-900">
           <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-zinc-900 font-sans text-sm font-bold text-white">
             {profile.initials}

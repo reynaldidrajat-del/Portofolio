@@ -29,6 +29,10 @@ export default function Slider({
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
 
+  // break-ui edge case: nothing to show — render nothing rather than an
+  // empty aspect-ratio box with a lone dot
+  if (!images.length) return null;
+
   const animRef = useRef<number | null>(null);
 
   const scrollTo = useCallback((i: number) => {
@@ -173,24 +177,26 @@ export default function Slider({
         </>
       )}
 
-      {/* Dots */}
-      <div className="mt-3 flex items-center justify-center gap-1.5" role="tablist" aria-label={t(ui.goto)}>
-        {images.map((_, i) => (
-          <button
-            key={i}
-            type="button"
-            role="tab"
-            aria-selected={i === index}
-            aria-label={`${t(ui.goto)} ${i + 1}`}
-            onClick={() => scrollTo(i)}
-            className="h-2 cursor-pointer rounded-full transition-all duration-300"
-            style={{
-              width: i === index ? 22 : 8,
-              background: i === index ? accent || "#09090b" : "#d4d4d8",
-            }}
-          />
-        ))}
-      </div>
+      {/* Dots — hidden for a single image (nothing to navigate) */}
+      {images.length > 1 && (
+        <div className="mt-3 flex items-center justify-center gap-1.5" role="tablist" aria-label={t(ui.goto)}>
+          {images.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              role="tab"
+              aria-selected={i === index}
+              aria-label={`${t(ui.goto)} ${i + 1}`}
+              onClick={() => scrollTo(i)}
+              className="h-2 cursor-pointer rounded-full transition-all duration-300"
+              style={{
+                width: i === index ? 22 : 8,
+                background: i === index ? accent || "#09090b" : "#d4d4d8",
+              }}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
