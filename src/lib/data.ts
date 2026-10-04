@@ -91,7 +91,7 @@ export const projects: Project[] = [
     tagline: { en: "From land docs to asset registry.", id: "Dari dokumen lahan ke registri aset." },
     tags: ["Assets", "Mapping"],
     accent: "#65A30D",
-    year: "2024",
+    year: "2025",
     images: [P("rd-land-1"), P("rd-land-2"), P("rd-land-3"), P("rd-land-4")],
   },
   {
@@ -100,7 +100,7 @@ export const projects: Project[] = [
     tagline: { en: "Reliable property ops, daily.", id: "Operasional properti yang andal." },
     tags: ["Property", "Support"],
     accent: "#8B5CF6",
-    year: "2024",
+    year: "2026",
     images: [P("rd-prop-1"), P("rd-prop-2"), P("rd-prop-3"), P("rd-prop-4")],
   },
   {
